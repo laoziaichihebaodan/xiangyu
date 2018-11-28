@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ZXingDemo</string>
+    <string name="app_name">学生端</string>
     <string name="title_activity_login">登陆</string>
     <!-- Strings related to login -->
     <string name="prompt_email">用户名</string>
