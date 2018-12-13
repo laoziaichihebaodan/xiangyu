@@ -4,4 +4,9 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="scan_corner_color">#0effc2</color>
+    <color name="history">#07694a</color>
+    <color name="exit">#592383</color>
+    <color name="text_exit">#080808</color>
+    <color name="white">#ffffff</color>
+    <color name="grey">#bbbbbb</color>
 </resources>

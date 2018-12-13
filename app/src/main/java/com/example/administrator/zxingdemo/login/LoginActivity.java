@@ -19,12 +19,13 @@ import android.widget.Toast;
 
 import com.example.administrator.zxingdemo.MainActivity;
 import com.example.administrator.zxingdemo.R;
+import com.example.administrator.zxingdemo.application.BaseActivity;
 
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     // UI references.
     private AutoCompleteTextView mEmailView;

@@ -1,28 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.administrator.zxingdemo.MainActivity"
+    android:background="@mipmap/background_main"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/click"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="简单的二维码扫描界面"
-        android:textSize="20sp"/>
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_tv_scan"
+        android:gravity="center"
+        android:text="扫码\n签到"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/history"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"
+        android:background="@drawable/bg_button_history"
+        android:gravity="center"
+        android:text="签到\n记录"
+        android:textColor="@color/colorAccent"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/exit"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
+        android:background="@drawable/bg_button_exit"
+        android:gravity="center"
+        android:text="退出\n登录"
+        android:textColor="@color/text_exit"
+        android:textSize="25sp"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/click2"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="扫描本地图库"
+        android:visibility="gone"
         android:textSize="20sp"/>
 
     <TextView
@@ -31,6 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="生成二维码"
+        android:visibility="gone"
         android:textSize="20sp"/>
 
     <TextView
@@ -39,5 +73,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="自定义扫描布局"
+        android:visibility="gone"
         android:textSize="20sp"/>
-</LinearLayout>
+</RelativeLayout>

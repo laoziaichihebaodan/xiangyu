@@ -10,20 +10,23 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.administrator.zxingdemo.application.BaseActivity;
+import com.example.administrator.zxingdemo.manager.AppManager;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity implements View.OnClickListener{
     public static final int REQUEST_CODE = 111;
     public static final int REQUEST_IMAGE = 222;
     public static final int REQUEST_CODE3 = 333;
     private final int RESULT_CODE_CAMERA=1;//判断是否有拍照权限的标识码
-    TextView textView,textView2,textView3,textView4;
+    TextView textView,textView2,textView3,textView4,exit,history;
     Bundle savedInstanceState;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +49,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textView2 = (TextView) findViewById(R.id.click2);
         textView3 = (TextView) findViewById(R.id.click3);
         textView4 = (TextView) findViewById(R.id.click4);
+        exit = (TextView) findViewById(R.id.exit);
+        history = (TextView) findViewById(R.id.history);
         textView.setOnClickListener(this);
         textView2.setOnClickListener(this);
         textView3.setOnClickListener(this);
         textView4.setOnClickListener(this);
+        exit.setOnClickListener(this);
+        history.setOnClickListener(this);
     }
 
     @Override
@@ -174,6 +181,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 startActivityForResult(intent,REQUEST_CODE3);
                 break;
+            case R.id.exit:
+                finish();
+                break;
+            case R.id.history:
+                intent = new Intent(MainActivity.this,SignHistoryActivity.class);
+                startActivity(intent);
+                break;
         }
+    }
+
+    private long exitTime = 0;
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if((System.currentTimeMillis()-exitTime) > 2000){
+                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                AppManager.getInstance().appExit();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

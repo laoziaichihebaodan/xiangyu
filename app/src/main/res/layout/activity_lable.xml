@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".login.LableActivity">
  <ImageView
-     android:src="@mipmap/timg"
+     android:src="@mipmap/background_lable"
      android:scaleType="centerCrop"
      android:layout_width="match_parent"
      android:layout_height="match_parent" />

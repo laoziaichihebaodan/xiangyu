@@ -6,6 +6,7 @@
     <string name="prompt_password">密码</string>
     <string name="old_password">原密码</string>
     <string name="action_sign_in">登陆</string>
+    <string name="action_confirm">确定</string>
     <string name="action_change_password">修改密码</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>

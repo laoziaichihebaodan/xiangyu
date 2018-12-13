@@ -9,14 +9,16 @@ import android.util.Log;
 import android.view.Window;
 
 import com.example.administrator.zxingdemo.R;
+import com.example.administrator.zxingdemo.application.BaseActivity;
 
-public class LableActivity extends AppCompatActivity {
+public class LableActivity extends BaseActivity {
     private Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == 100){
                 startActivity(new Intent(LableActivity.this,LoginActivity.class));
+                finish();
             }
         }
     };

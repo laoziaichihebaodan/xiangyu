@@ -61,6 +61,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="@string/action_sign_in"
+                android:background="@drawable/bg_button_blue"
+                android:textColor="@color/white"
+                android:textSize="18dp"
                 android:textStyle="bold" />
             <TextView
                 android:id="@+id/email_change_password"
@@ -68,10 +71,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_gravity="right"
-                android:paddingRight="30dp"
                 android:textSize="16dp"
                 android:textColor="@color/colorPrimary"
                 android:text="@string/action_change_password"
+                android:gravity="center"
+                android:background="@drawable/bg_button_grey"
                 android:textStyle="bold" />
         </LinearLayout>
 

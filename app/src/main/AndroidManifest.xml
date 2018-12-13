@@ -26,17 +26,20 @@
         <activity android:name=".CustomZxingActivity" />
         <activity
             android:name=".login.LoginActivity"
-            android:label="@string/title_activity_login">
-        </activity>
+            android:label="@string/title_activity_login"></activity>
         <activity
             android:name=".login.ChangePasswordActivity"
-            android:label="@string/action_change_password"></activity>
+            android:label="@string/action_change_password" />
         <activity android:name=".login.LableActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".SignHistoryActivity"
+            android:label="签到历史">
+
         </activity>
     </application>
 

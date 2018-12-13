@@ -11,9 +11,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.administrator.zxingdemo.application.BaseActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
-public class CreatZxingActivity extends AppCompatActivity implements View.OnClickListener{
+public class CreatZxingActivity extends BaseActivity implements View.OnClickListener{
     EditText content;
     Button button1,button2;
     ImageView imageView;

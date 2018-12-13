@@ -8,10 +8,11 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 
+import com.example.administrator.zxingdemo.application.BaseActivity;
 import com.uuzuche.lib_zxing.activity.CaptureFragment;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
-public class CustomZxingActivity extends AppCompatActivity {
+public class CustomZxingActivity extends BaseActivity {
     Button open,close;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

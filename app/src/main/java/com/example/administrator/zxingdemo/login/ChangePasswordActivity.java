@@ -10,8 +10,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.administrator.zxingdemo.R;
+import com.example.administrator.zxingdemo.application.BaseActivity;
 
-public class ChangePasswordActivity extends AppCompatActivity {
+public class ChangePasswordActivity extends BaseActivity {
     private EditText oldPassword,newPassword,surePassword;
     private Button confirm;
     private Dialog dialog;
