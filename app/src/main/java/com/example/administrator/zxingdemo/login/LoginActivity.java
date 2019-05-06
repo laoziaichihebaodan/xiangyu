@@ -1,23 +1,18 @@
 package com.example.administrator.zxingdemo.login;
 
-
 import android.app.Dialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,10 +23,8 @@ import com.example.administrator.zxingdemo.Constant;
 import com.example.administrator.zxingdemo.MainActivity;
 import com.example.administrator.zxingdemo.R;
 import com.example.administrator.zxingdemo.application.BaseActivity;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +43,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         changePassWord = (TextView) findViewById(R.id.email_change_password);
@@ -169,7 +162,7 @@ public class LoginActivity extends BaseActivity {
             }
         }){
             @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String,String> map = new HashMap<>();
                 map.put("type","2");
                 map.put("userName",mEmailView.getText().toString().trim());
