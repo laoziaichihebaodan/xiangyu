@@ -6,4 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".SignHistoryActivity">
 
+    <ListView
+        android:id="@+id/lv"
+        android:layout_width="match_parent"
+        android:divider="#333"
+        android:dividerHeight="1px"
+        android:layout_height="match_parent">
+
+    </ListView>
+
 </LinearLayout>

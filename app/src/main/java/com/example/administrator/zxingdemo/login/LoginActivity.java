@@ -17,9 +17,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.administrator.zxingdemo.Constant;
 import com.example.administrator.zxingdemo.MainActivity;
 import com.example.administrator.zxingdemo.R;
 import com.example.administrator.zxingdemo.application.BaseActivity;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -119,33 +133,51 @@ public class LoginActivity extends BaseActivity {
             dialog.setCancelable(true);
             dialog.setCanceledOnTouchOutside(false); // 点击外部返回
         }
-        startActivity(new Intent(LoginActivity.this,MainActivity.class));
-//        dialog.show();
-//        try {
-//            Thread.sleep(2000);
-//        }catch (Exception e){}
-//
-//        RequestQueue queue = Volley.newRequestQueue(this);
-//        StringRequest request = new StringRequest(Request.Method.GET, "http://192.168.0.109:8080/xlbt/selectActivity", new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                dialog.dismiss();
-//
-//                Toast toast = Toast.makeText(this,"登陆成功",Toast.LENGTH_SHORT);
-//                toast.setText("登陆成功");
-//                toast.show();
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                dialog.dismiss();
-//                Toast toast = Toast.makeText(this,"网络错误，请重试···",Toast.LENGTH_SHORT);
-//                toast.setText("网络错误，请重试···");
-//                toast.show();
-//            }
-//        });
-//        queue.add(request);
-//        queue.cancelAll(request);
+        dialog.show();
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest request = new StringRequest(Request.Method.POST, Constant.URL+"/app/teacher/login.json", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                dialog.dismiss();
+                try {
+                    JSONObject object = new JSONObject(response);
+                    if (object.getInt("status") == 0) {
+                        JSONObject object1 = object.getJSONObject("data");
+                        Constant.studentId = object1.getInt("id");
+                        Toast toast = Toast.makeText(LoginActivity.this,"登陆成功",Toast.LENGTH_SHORT);
+                        toast.setText("登陆成功");
+                        toast.show();
+                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                    }else{
+                        Toast toast = Toast.makeText(LoginActivity.this,"登陆失败",Toast.LENGTH_SHORT);
+                        toast.setText("登陆失败");
+                        toast.show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                dialog.dismiss();
+                Toast toast = Toast.makeText(LoginActivity.this,"网络错误，请重试···",Toast.LENGTH_SHORT);
+                toast.setText("网络错误，请重试···");
+                toast.show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("type","2");
+                map.put("userName",mEmailView.getText().toString().trim());
+                map.put("passWord",mPasswordView.getText().toString().trim());
+                return map;
+            }
+        };
+        queue.add(request);
+        queue.cancelAll(request);
     }
 
     private boolean isPasswordValid(String password) {

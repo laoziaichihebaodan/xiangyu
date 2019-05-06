@@ -1,6 +1,7 @@
 package com.example.administrator.zxingdemo;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,15 +17,30 @@ import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.administrator.zxingdemo.application.BaseActivity;
+import com.example.administrator.zxingdemo.login.LoginActivity;
 import com.example.administrator.zxingdemo.manager.AppManager;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
     public static final int REQUEST_CODE = 111;
     public static final int REQUEST_IMAGE = 222;
     public static final int REQUEST_CODE3 = 333;
+    private Dialog dialog;
     private final int RESULT_CODE_CAMERA=1;//判断是否有拍照权限的标识码
     TextView textView,textView2,textView3,textView4,exit,history;
     Bundle savedInstanceState;
@@ -102,10 +118,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
                     Toast.makeText(this, "解析结果:" + result, Toast.LENGTH_LONG).show();
-                    textView.setText(result);
+//                    textView.setText(result);
+                    sign();
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                     Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
-                    textView.setText( "解析二维码失败");
+//                    textView.setText( "解析二维码失败");
                 }
             }
         }
@@ -137,13 +154,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                         @Override
                         public void onAnalyzeSuccess(Bitmap mBitmap, String result) {
                             Toast.makeText(MainActivity.this, "解析结果:" + result, Toast.LENGTH_LONG).show();
-                            textView2.setText(result);
+//                            textView2.setText(result);
                         }
 
                         @Override
                         public void onAnalyzeFailed() {
                             Toast.makeText(MainActivity.this, "解析二维码失败", Toast.LENGTH_LONG).show();
-                            textView2.setText( "解析二维码失败");
+//                            textView2.setText( "解析二维码失败");
                         }
                     });
 
@@ -155,6 +172,61 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 }
             }
         }
+    }
+
+    private void sign() {
+        if (dialog == null){
+            dialog = new Dialog(this);
+//            dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            dialog.setContentView(R.layout.dialog_progress);
+            dialog.setCancelable(true);
+            dialog.setCanceledOnTouchOutside(false); // 点击外部返回
+        }
+        dialog.show();
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest request = new StringRequest(Request.Method.POST, Constant.URL+"/app/teacher/checkErWei.json", new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                dialog.dismiss();
+                try {
+                    String msg;
+                    JSONObject object = new JSONObject(response);
+                    if (object.getInt("status") == 0) {
+                        msg = object.getString("msg");
+                        Toast toast = Toast.makeText(MainActivity.this,msg,Toast.LENGTH_SHORT);
+                        toast.setText(msg);
+                        toast.show();
+                        startActivity(new Intent(MainActivity.this,MainActivity.class));
+                    }else if (object.getInt("status") == 1){
+                        msg = object.getString("msg");
+                        Toast toast = Toast.makeText(MainActivity.this,msg,Toast.LENGTH_SHORT);
+                        toast.setText(msg);
+                        toast.show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                dialog.dismiss();
+                Toast toast = Toast.makeText(MainActivity.this,"网络错误，请重试···",Toast.LENGTH_SHORT);
+                toast.setText("网络错误，请重试···");
+                toast.show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put("planId","3");
+                map.put("userId",Constant.studentId+"");
+                return map;
+            }
+        };
+        queue.add(request);
+        queue.cancelAll(request);
     }
 
     @Override

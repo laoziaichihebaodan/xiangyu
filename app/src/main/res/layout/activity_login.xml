@@ -18,12 +18,12 @@
         android:orientation="vertical">
 
         <com.example.administrator.zxingdemo.customer.XCRoundImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="40dp"
-            android:src="@mipmap/launch" />
+            android:src="@mipmap/xinxi" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -80,6 +80,7 @@
             android:text="@string/action_change_password"
             android:textColor="@color/colorPrimary"
             android:textSize="16dp"
+            android:visibility="gone"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>
