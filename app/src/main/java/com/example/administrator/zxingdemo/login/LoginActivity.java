@@ -50,6 +50,7 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         changePassWord = (TextView) findViewById(R.id.email_change_password);
